@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>M Chateau — Private Dining by Chef Marcus Lim</title>
+<meta name="description" content="A French tasting menu, set for a single table. Private dining by Chef Marcus Lim, Singapore." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=Italiana&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bone:        #f4f1ea;
+    --bone-soft:   #ebe6dc;
+    --ink:         #0a0a0a;
+    --ink-soft:    #1a1a1a;
+    --charcoal:    #141413;
+    --grey:        #8c867c;
+    --grey-soft:   #b8b1a4;
+    --line:        rgba(10,10,10,0.12);
+    --line-light:  rgba(244,241,234,0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bone);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Display type families */
+  .italiana { font-family: 'Italiana', serif; font-weight: 400; letter-spacing: 0.04em; }
+  .cormorant { font-family: 'Cormorant Garamond', serif; }
+
+  /* Eyebrow / overline */
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    font-size: 10.5px;
+    letter-spacing: 0.42em;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .eyebrow.light { color: rgba(244,241,234,0.65); }
+  .eyebrow .num { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; letter-spacing: 0.05em; margin-right: 14px; font-size: 14px; }
+
+  /* Reveal animation */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 1.1s ease, transform 1.1s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-slow { transition-duration: 1.6s; }
+
+  /* ─────────── NAV ─────────── */
+  nav.top {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 26px 44px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    z-index: 100;
+    color: var(--bone);
+    transition: background 0.4s ease, color 0.4s ease, padding 0.3s ease, border-color 0.4s ease;
+    border-bottom: 1px solid transparent;
+  }
+  nav.top.scrolled {
+    background: rgba(244,241,234,0.95);
+    color: var(--ink);
+    border-bottom-color: var(--line);
+    padding: 18px 44px;
+    backdrop-filter: blur(12px);
+  }
+  nav.top .brand {
+    font-family: 'Italiana', serif;
+    font-size: 22px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    grid-column: 2;
+    text-align: center;
+  }
+  nav.top .nav-side {
+    display: flex;
+    gap: 36px;
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+  nav.top .nav-side.right { justify-content: flex-end; }
+  nav.top a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+  nav.top a:hover { opacity: 0.6; }
+
+  /* ─────────── HERO ─────────── */
+  .hero {
+    height: 100vh;
+    min-height: 720px;
+    position: relative;
+    overflow: hidden;
+    color: var(--bone);
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    background: url('images/main-course.jpeg') center 50%/cover no-repeat;
+    transform: scale(1.05);
+    animation: heroZoom 12s ease-out forwards;
+  }
+  @keyframes heroZoom {
+    from { transform: scale(1.12); }
+    to   { transform: scale(1.02); }
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.25) 35%, rgba(10,10,10,0.7) 100%);
+    z-index: 1;
+  }
+
+  .hero-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 3;
+    padding: 0 24px;
+  }
+  .hero-eyebrow {
+    font-size: 10.5px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: rgba(244,241,234,0.85);
+    margin-bottom: 56px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: rgba(244,241,234,0.5);
+  }
+  .hero-title {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: clamp(72px, 14vw, 200px);
+    line-height: 0.94;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(17px, 1.5vw, 21px);
+    color: rgba(244,241,234,0.85);
+    max-width: 560px;
+    line-height: 1.5;
+  }
+  .hero-bottom {
+    position: absolute;
+    bottom: 36px;
+    left: 0; right: 0;
+    z-index: 3;
+    padding: 0 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    color: rgba(244,241,234,0.7);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+  .hero-bottom .scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-bottom .scroll-line {
+    width: 1px;
+    height: 36px;
+    background: rgba(244,241,234,0.5);
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scaleY(0.4); transform-origin: top; opacity: 0.4; }
+    50%      { transform: scaleY(1);   opacity: 1; }
+  }
+
+  /* ─────────── INTRO ─────────── */
+  .intro {
+    padding: 180px 44px 140px;
+    text-align: center;
+  }
+  .intro-logo {
+    width: 110px;
+    height: auto;
+    margin: 0 auto 50px;
+    display: block;
+    opacity: 0.92;
+  }
+  .intro .eyebrow { display: inline-block; margin-bottom: 56px; }
+  .intro h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(34px, 4.5vw, 60px);
+    line-height: 1.18;
+    max-width: 1000px;
+    margin: 0 auto 0;
+    letter-spacing: -0.005em;
+  }
+  .intro h2 em { font-style: italic; font-weight: 400; }
+  .intro-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.6;
+    color: var(--grey);
+    max-width: 640px;
+    margin: 32px auto 0;
+  }
+
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin: 70px auto 0;
+    color: var(--ink);
+    opacity: 0.6;
+  }
+  .ornament .line { width: 80px; height: 1px; background: currentColor; }
+  .ornament .diamond {
+    width: 6px; height: 6px;
+    background: currentColor;
+    transform: rotate(45deg);
+  }
+
+  /* ─────────── DISH MARQUEE (scrollable, looping) ─────────── */
+  .dish-marquee {
+    padding: 130px 0 130px;
+    background: var(--bone);
+    overflow: hidden;
+    position: relative;
+  }
+  .dish-marquee-header {
+    text-align: center;
+    padding: 0 44px;
+    margin-bottom: 70px;
+  }
+  .dish-marquee-header .eyebrow { display: inline-block; margin-bottom: 28px; }
+  .dish-marquee-header h2 {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: clamp(40px, 5vw, 72px);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .dish-marquee-header p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--grey);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .marquee-viewport {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: marquee 50s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .dish-card {
+    flex: 0 0 auto;
+    width: 320px;
+    height: 420px;
+    overflow: hidden;
+    position: relative;
+    background: var(--bone-soft);
+  }
+  .dish-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.96);
+    transition: transform 0.8s ease;
+  }
+  .dish-card:hover img { transform: scale(1.04); }
+  .dish-card .dish-label {
+    position: absolute;
+    left: 16px; bottom: 16px;
+    color: var(--bone);
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+  .dish-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0) 60%, rgba(10,10,10,0.55) 100%);
+  }
+
+  /* ─────────── CHEF (DARK) ─────────── */
+  .chef {
+    background: var(--ink);
+    color: var(--bone);
+    padding: 0;
+    overflow: hidden;
+  }
+  .chef-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+  }
+  .chef-image {
+    background: url('images/chef-portrait.jpeg') center 20%/cover no-repeat;
+    min-height: 600px;
+  }
+  .chef-content {
+    padding: 140px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .chef-content .eyebrow { display: inline-block; margin-bottom: 40px; }
+  .chef-content h2 {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 5.5vw, 84px);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .chef-content .chef-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--grey-soft);
+    margin-bottom: 48px;
+    letter-spacing: 0.02em;
+  }
+  .chef-content p {
+    font-size: 14.5px;
+    line-height: 1.95;
+    color: rgba(244,241,234,0.78);
+    margin-bottom: 22px;
+    max-width: 480px;
+  }
+  .lineage {
+    list-style: none;
+    margin-top: 40px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line-light);
+  }
+  .lineage li {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: rgba(244,241,234,0.85);
+    border-bottom: 1px solid var(--line-light);
+  }
+  .lineage li:last-child { border-bottom: none; }
+  .lineage li .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(244,241,234,0.45);
+  }
+  .lineage li .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: rgba(244,241,234,0.95);
+  }
+
+  /* ─────────── MENU ─────────── */
+  .menu {
+    padding: 180px 44px 160px;
+    background: var(--bone);
+  }
+  .menu-header {
+    text-align: center;
+    margin-bottom: 110px;
+  }
+  .menu-header .eyebrow { display: inline-block; margin-bottom: 38px; }
+  .menu-header h2 {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: clamp(56px, 8vw, 124px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .menu-header h2 em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    text-transform: lowercase;
+    letter-spacing: 0;
+  }
+  .menu-header .menu-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 21px;
+    color: var(--grey);
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .menu-courses {
+    max-width: 940px;
+    margin: 0 auto;
+  }
+  .course {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 56px;
+    padding: 44px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .course:last-of-type { border-bottom: 1px solid var(--line); }
+  .course-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 38px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .course-label {
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 14px;
+  }
+  .course-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(26px, 2.6vw, 36px);
+    line-height: 1.2;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .course-name em { font-style: italic; }
+  .course-or {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--grey);
+    margin: 12px 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .course-or::before,
+  .course-or::after {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--line);
+  }
+
+  .menu-price {
+    text-align: center;
+    margin-top: 90px;
+    padding-top: 44px;
+    border-top: 1px solid var(--line);
+    max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .menu-price .price-num {
+    font-family: 'Italiana', serif;
+    font-size: clamp(44px, 6vw, 72px);
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .menu-price .price-label {
+    font-size: 10px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-top: 12px;
+  }
+
+  /* Enhancements */
+  .enhancements {
+    max-width: 940px;
+    margin: 110px auto 0;
+    padding-top: 70px;
+    border-top: 1px solid var(--line);
+  }
+  .enhancements-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .enhancements-header h3 {
+    font-family: 'Italiana', serif;
+    font-size: clamp(28px, 3vw, 40px);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .enhancements-header p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--grey);
+    font-size: 17px;
+  }
+  .enh-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 60px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .enh-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px dotted var(--line);
+    gap: 24px;
+  }
+  .enh-row .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .enh-row .price {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    flex-shrink: 0;
+  }
+
+  /* ─────────── SOCIAL FEED ─────────── */
+  .social {
+    padding: 160px 44px 140px;
+    background: var(--bone);
+    text-align: center;
+  }
+  .social-header {
+    margin-bottom: 70px;
+  }
+  .social-header .eyebrow { display: inline-block; margin-bottom: 28px; }
+  .social-header h2 {
+    font-family: 'Italiana', serif;
+    font-size: clamp(40px, 5vw, 72px);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .social-header p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--grey);
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    max-width: 1200px;
+    margin: 0 auto 50px;
+  }
+  .reel {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    background: var(--ink-soft);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--bone);
+    display: block;
+  }
+  .reel img,
+  .reel video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.9s ease, filter 0.4s ease;
+    filter: brightness(0.85);
+  }
+  .reel:hover img,
+  .reel:hover video { transform: scale(1.04); filter: brightness(0.95); }
+  .reel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
+    z-index: 1;
+  }
+  .reel-play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px; height: 56px;
+    border: 1px solid rgba(244,241,234,0.85);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+    background: rgba(10,10,10,0.18);
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .reel:hover .reel-play { background: rgba(10,10,10,0.4); transform: translate(-50%, -50%) scale(1.06); }
+  .reel-play svg { width: 18px; height: 18px; fill: var(--bone); margin-left: 3px; }
+  .reel-meta {
+    position: absolute;
+    bottom: 14px; left: 14px; right: 14px;
+    z-index: 2;
+    text-align: left;
+  }
+  .reel-meta .reel-handle {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(244,241,234,0.85);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .reel-meta .reel-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--bone);
+    line-height: 1.35;
+  }
+  .social-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    border: 1px solid var(--ink);
+    padding: 18px 36px;
+    transition: all 0.3s ease;
+  }
+  .social-cta:hover { background: var(--ink); color: var(--bone); }
+  .social-cta svg { width: 14px; height: 14px; fill: currentColor; }
+
+  /* ─────────── RESERVE ─────────── */
+  .reserve {
+    background: var(--ink);
+    color: var(--bone);
+    padding: 180px 44px 140px;
+    text-align: center;
+  }
+  .reserve .eyebrow { display: inline-block; margin-bottom: 38px; color: rgba(244,241,234,0.7); }
+  .reserve h2 {
+    font-family: 'Italiana', serif;
+    font-weight: 400;
+    font-size: clamp(56px, 7vw, 110px);
+    line-height: 0.95;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .reserve > p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 21px;
+    color: rgba(244,241,234,0.7);
+    max-width: 600px;
+    margin: 0 auto 80px;
+    line-height: 1.5;
+  }
+
+  .reserve-form {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: left;
+    display: grid;
+    gap: 36px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  .field label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: rgba(244,241,234,0.55);
+    margin-bottom: 14px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(244,241,234,0.25);
+    padding: 6px 0 16px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--bone);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: rgba(244,241,234,0.3); font-style: italic; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-bottom-color: var(--bone);
+  }
+  .field select option { background: var(--ink); color: var(--bone); }
+  .field textarea { resize: none; min-height: 60px; }
+  .field select { color-scheme: dark; }
+
+  .submit-btn {
+    margin-top: 30px;
+    background: transparent;
+    color: var(--bone);
+    border: 1px solid var(--bone);
+    padding: 22px 64px;
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    cursor: pointer;
+    justify-self: center;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+  }
+  .submit-btn:hover { background: var(--bone); color: var(--ink); }
+
+  /* ─────────── FOOTER ─────────── */
+  footer {
+    background: var(--charcoal);
+    color: rgba(244,241,234,0.6);
+    padding: 80px 44px 44px;
+  }
+  .footer-top {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--line-light);
+  }
+  .footer-logo {
+    width: 140px;
+    height: auto;
+    margin: 0 auto 18px;
+    display: block;
+    filter: invert(1) brightness(1.05);
+  }
+  .footer-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: rgba(244,241,234,0.5);
+  }
+  .footer-tag .footer-loc {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(244,241,234,0.4);
+    margin-top: 12px;
+    display: block;
+  }
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+  .footer-bottom a {
+    color: rgba(244,241,234,0.6);
+    text-decoration: none;
+    margin: 0 16px;
+    transition: color 0.2s ease;
+  }
+  .footer-bottom a:hover { color: var(--bone); }
+  .footer-bottom .copy { color: rgba(244,241,234,0.35); }
+
+  /* ─────────── RESPONSIVE ─────────── */
+  @media (max-width: 900px) {
+    nav.top { padding: 18px 22px; grid-template-columns: 1fr auto 1fr; }
+    nav.top.scrolled { padding: 14px 22px; }
+    nav.top .nav-side { display: none; }
+    nav.top .brand { font-size: 17px; letter-spacing: 0.28em; }
+
+    .hero-bottom { padding: 0 22px; bottom: 24px; }
+    .hero-bottom > div:first-child, .hero-bottom > div:last-child { display: none; }
+
+    .intro { padding: 110px 22px 90px; }
+    .intro-logo { width: 80px; margin-bottom: 36px; }
+
+    .dish-marquee { padding: 90px 0 90px; }
+    .dish-card { width: 240px; height: 320px; }
+
+    .chef-grid { grid-template-columns: 1fr; }
+    .chef-image { min-height: 460px; }
+    .chef-content { padding: 90px 28px; }
+
+    .menu { padding: 120px 22px 110px; }
+    .menu-header { margin-bottom: 70px; }
+    .course { grid-template-columns: 60px 1fr; gap: 24px; padding: 32px 0; }
+    .course-num { font-size: 28px; }
+
+    .enh-grid { grid-template-columns: 1fr; gap: 0; }
+
+    .social { padding: 110px 22px 90px; }
+    .social-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+    .reserve { padding: 110px 22px 90px; }
+    .form-row { grid-template-columns: 1fr; gap: 30px; }
+
+    .footer-bottom { flex-direction: column; gap: 14px; }
+    .footer-logo { width: 110px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="top" id="topNav">
+  <div class="nav-side">
+    <a href="#story">Story</a>
+    <a href="#menu">Menu</a>
+  </div>
+  <div class="brand">M Chateau</div>
+  <div class="nav-side right">
+    <a href="#gallery">Gallery</a>
+    <a href="#reserve">Reserve</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-center">
+    <div class="hero-eyebrow">Private Dining · Singapore</div>
+    <h1 class="hero-title">M Chateau</h1>
+    <p class="hero-tagline">A French tasting menu, served in the chef's own home — a single table for four to six guests, by appointment only.</p>
+  </div>
+  <div class="hero-bottom">
+    <div>A <span class="cormorant" style="font-style:italic; letter-spacing:0.06em">Private Home</span> Experience</div>
+    <div class="scroll">
+      <span>Scroll</span>
+      <span class="scroll-line"></span>
+    </div>
+    <div>By <span class="cormorant" style="font-style:italic; letter-spacing:0.06em">Reservation Only</span></div>
+  </div>
+</header>
+
+<!-- INTRO -->
+<section class="intro" id="story">
+  <img class="intro-logo reveal" src="images/logo-cutout.png" alt="M Chateau" />
+  <div class="eyebrow reveal"><span class="num">I</span>The Philosophy</div>
+  <h2 class="reveal reveal-slow">A <em>private home</em>. A single dining table. One chef cooking only for you — five courses, French in technique, quietly accented by the East.</h2>
+  <p class="intro-sub reveal">From the polished glassware at the table to the hand cream beside the basin, every detail is composed with intent — so that, by the first course, the room ceases to feel like a home and reads as the restaurant it has become for the evening.</p>
+  <div class="ornament reveal">
+    <span class="line"></span><span class="diamond"></span><span class="line"></span>
+  </div>
+</section>
+
+<!-- DISH MARQUEE -->
+<section class="dish-marquee">
+  <div class="dish-marquee-header">
+    <div class="eyebrow reveal">— The Dishes</div>
+    <h2 class="reveal reveal-slow">An Evening, Plated</h2>
+    <p class="reveal">A glimpse of the courses that have left the pass — composed, restrained, served once.</p>
+  </div>
+
+  <div class="marquee-viewport">
+    <div class="marquee-track">
+      <!-- Set A -->
+      <figure class="dish-card"><img src="images/main-course.jpeg" alt="" /><span class="dish-label">Course V — Main</span></figure>
+      <figure class="dish-card"><img src="images/scallop-truffle.jpeg" alt="" /><span class="dish-label">Course II — Scallop</span></figure>
+      <figure class="dish-card"><img src="images/tuile-detail.jpeg" alt="" /><span class="dish-label">Detail — Tuile</span></figure>
+      <figure class="dish-card"><img src="images/chef-plating.jpeg" alt="" /><span class="dish-label">Pass — Plating</span></figure>
+      <figure class="dish-card"><img src="images/table-setting.jpeg" alt="" /><span class="dish-label">The Room</span></figure>
+      <!-- Set B (duplicate for seamless loop) -->
+      <figure class="dish-card"><img src="images/main-course.jpeg" alt="" /><span class="dish-label">Course V — Main</span></figure>
+      <figure class="dish-card"><img src="images/scallop-truffle.jpeg" alt="" /><span class="dish-label">Course II — Scallop</span></figure>
+      <figure class="dish-card"><img src="images/tuile-detail.jpeg" alt="" /><span class="dish-label">Detail — Tuile</span></figure>
+      <figure class="dish-card"><img src="images/chef-plating.jpeg" alt="" /><span class="dish-label">Pass — Plating</span></figure>
+      <figure class="dish-card"><img src="images/table-setting.jpeg" alt="" /><span class="dish-label">The Room</span></figure>
+    </div>
+  </div>
+</section>
+
+<!-- CHEF -->
+<section class="chef">
+  <div class="chef-grid">
+    <div class="chef-image" role="img" aria-label="Chef Marcus Lim"></div>
+    <div class="chef-content">
+      <div class="eyebrow light reveal"><span class="num">II</span>The Chef</div>
+      <h2 class="reveal reveal-slow">Marcus<br/>Lim</h2>
+      <div class="chef-sub reveal">Chef &amp; Founder</div>
+      <p class="reveal">Trained inside some of Singapore's most exacting kitchens — apprenticed at Saveur by the Sea, then through the brigades of Garibaldi and other Michelin-starred houses, where he was personally mentored by two-Michelin-star Chef Kirk Westaway.</p>
+      <p class="reveal">His cuisine is rooted in classical French technique — sous-vide, butter-mounted sauces, precise plating — and lifted by quiet Japanese accents drawn from years on the line.</p>
+      <p class="reveal">Marcus is openly neurodivergent, living with dyslexia, ADHD, and autism. The exactness that defines his cooking has been hard-won, and it is the same exactness he brings to every plate that leaves his pass.</p>
+
+      <ul class="lineage reveal">
+        <li>
+          <span class="label">Mentorship</span>
+          <span class="value">Chef Kirk Westaway · ★★</span>
+        </li>
+        <li>
+          <span class="label">Brigade</span>
+          <span class="value">Garibaldi · Michelin Star</span>
+        </li>
+        <li>
+          <span class="label">Apprenticeship</span>
+          <span class="value">Saveur by the Sea</span>
+        </li>
+        <li>
+          <span class="label">Discipline</span>
+          <span class="value">French · Japanese accent</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="menu-header">
+    <div class="eyebrow reveal"><span class="num">III</span>The Tasting</div>
+    <h2 class="reveal reveal-slow">Signature<br/><em>French Fusion</em></h2>
+    <p class="menu-sub reveal">A five-course private dining experience, composed and served for one table.</p>
+  </div>
+
+  <div class="menu-courses">
+    <div class="course reveal">
+      <div class="course-num">I</div>
+      <div>
+        <div class="course-label">To Begin</div>
+        <div class="course-name"><em>Amuse-Bouche</em></div>
+      </div>
+    </div>
+
+    <div class="course reveal">
+      <div class="course-num">II</div>
+      <div>
+        <div class="course-label">First Course</div>
+        <div class="course-name">Scallop, <em>Capasante</em> Sauce</div>
+      </div>
+    </div>
+
+    <div class="course reveal">
+      <div class="course-num">III</div>
+      <div>
+        <div class="course-label">Second Course</div>
+        <div class="course-name">Abalone, Foie Gras &amp; <em>Consommé</em></div>
+      </div>
+    </div>
+
+    <div class="course reveal">
+      <div class="course-num">IV</div>
+      <div>
+        <div class="course-label">Third Course</div>
+        <div class="course-name">Dumpling &amp; Mushroom, <em>Coconut Cream Velouté</em></div>
+      </div>
+    </div>
+
+    <div class="course reveal">
+      <div class="course-num">V</div>
+      <div>
+        <div class="course-label">Main Course</div>
+        <div class="course-name">Black Miso Cod, Chicken Tuile, Mashed Potato, Sweet Onion</div>
+        <div class="course-or">or</div>
+        <div class="course-name">Beef, Mashed Potato, Sweet Onion, Chicken Tuile, <em>Peppercorn Jus</em></div>
+      </div>
+    </div>
+
+    <div class="course reveal">
+      <div class="course-num">VI</div>
+      <div>
+        <div class="course-label">To Finish</div>
+        <div class="course-name"><em>Dessert</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-price reveal">
+    <div class="price-num">$168</div>
+    <div class="price-label">Per Guest</div>
+  </div>
+
+  <div class="enhancements">
+    <div class="enhancements-header">
+      <h3 class="reveal">Seasonal Enhancements</h3>
+      <p class="reveal">Add to the menu by request, two weeks in advance.</p>
+    </div>
+    <div class="enh-grid">
+      <div class="enh-row reveal">
+        <span class="name">Glacier 51 Toothfish · Main Upgrade</span>
+        <span class="price">+ $30</span>
+      </div>
+      <div class="enh-row reveal">
+        <span class="name">Australian A4 Wagyu · Main Upgrade</span>
+        <span class="price">+ $20</span>
+      </div>
+      <div class="enh-row reveal">
+        <span class="name">Kristal Caviar, 30g</span>
+        <span class="price">+ $180</span>
+      </div>
+      <div class="enh-row reveal">
+        <span class="name">Kristal Caviar, 50g</span>
+        <span class="price">+ $297</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL FEED -->
+<section class="social" id="gallery">
+  <div class="social-header">
+    <div class="eyebrow reveal"><span class="num">IV</span>From the Pass</div>
+    <h2 class="reveal reveal-slow">Watch the Kitchen</h2>
+    <p class="reveal">Quiet moments from M Chateau, captured between services. Follow along on Instagram.</p>
+  </div>
+
+  <div class="social-grid">
+    <a class="reel reveal" href="https://www.instagram.com/real.mchateau/" target="_blank" rel="noopener" aria-label="Watch on Instagram">
+      <img src="images/main-course.jpeg" alt="" />
+      <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="reel-meta">
+        <span class="reel-handle">@real.mchateau</span>
+        <span class="reel-title">Plating the main course.</span>
+      </div>
+    </a>
+
+    <a class="reel reveal" href="https://www.instagram.com/real.mchateau/" target="_blank" rel="noopener" aria-label="Watch on Instagram">
+      <img src="images/scallop-truffle.jpeg" alt="" />
+      <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="reel-meta">
+        <span class="reel-handle">@real.mchateau</span>
+        <span class="reel-title">Shaved truffle, by the gram.</span>
+      </div>
+    </a>
+
+    <a class="reel reveal" href="https://www.instagram.com/real.mchateau/" target="_blank" rel="noopener" aria-label="Watch on Instagram">
+      <img src="images/chef-plating.jpeg" alt="" />
+      <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="reel-meta">
+        <span class="reel-handle">@real.mchateau</span>
+        <span class="reel-title">Service, in real time.</span>
+      </div>
+    </a>
+
+    <a class="reel reveal" href="https://www.instagram.com/real.mchateau/" target="_blank" rel="noopener" aria-label="Watch on Instagram">
+      <img src="images/tuile-detail.jpeg" alt="" />
+      <div class="reel-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="reel-meta">
+        <span class="reel-handle">@real.mchateau</span>
+        <span class="reel-title">A tuile, fresh from the rack.</span>
+      </div>
+    </a>
+  </div>
+
+  <a class="social-cta reveal" href="https://www.instagram.com/real.mchateau/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 8.5 2.6 8.9 2.6 12s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4C15.5 4 15.1 4 12 4zm0 3.2a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6zm0 1.8a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5-2.4a1.1 1.1 0 1 1 0 2.3 1.1 1.1 0 0 1 0-2.3z"/></svg>
+    Follow @real.mchateau
+  </a>
+</section>
+
+<!-- RESERVE -->
+<section class="reserve" id="reserve">
+  <div class="eyebrow reveal"><span class="num">V</span>Reservations</div>
+  <h2 class="reveal reveal-slow">Reserve<br/>The Table</h2>
+  <p class="reveal">By appointment, Friday through Sunday — typically one month in advance.</p>
+
+  <form class="reserve-form" id="reserveForm" onsubmit="return submitReservation(event)">
+    <div class="form-row">
+      <div class="field">
+        <label for="rName">Name</label>
+        <input id="rName" name="name" type="text" required placeholder="Your name" />
+      </div>
+      <div class="field">
+        <label for="rEmail">Email</label>
+        <input id="rEmail" name="email" type="email" required placeholder="you@example.com" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="field">
+        <label for="rDate">Preferred Date</label>
+        <input id="rDate" name="date" type="date" required />
+      </div>
+      <div class="field">
+        <label for="rPax">Party Size</label>
+        <select id="rPax" name="pax" required>
+          <option value="">Select…</option>
+          <option value="4">Four guests</option>
+          <option value="5">Five guests</option>
+          <option value="6">Six guests</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="rNotes">A Note for the Chef</label>
+      <textarea id="rNotes" name="notes" placeholder="Dietary preferences, occasion, or any seasonal enhancement requests…"></textarea>
+    </div>
+    <button type="submit" class="submit-btn">Send Enquiry</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <img class="footer-logo" src="images/logo.png" alt="M Chateau" />
+    <div class="footer-tag">
+      Private Dining
+      <span class="footer-loc">A Private Home · Singapore</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="copy">© M Chateau · All Rights Reserved</div>
+    <div>
+      <a href="mailto:reservations@mchateau.sg">Email</a>
+      <a href="https://www.instagram.com/real.mchateau/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <div class="copy">Crafted with intention</div>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav background on scroll
+  const nav = document.getElementById('topNav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Reservation form -> mailto
+  function submitReservation(e) {
+    e.preventDefault();
+    const f = e.target;
+    const name = f.name.value.trim();
+    const email = f.email.value.trim();
+    const date = f.date.value;
+    const pax = f.pax.value;
+    const notes = f.notes.value.trim();
+
+    const subject = encodeURIComponent(`Reservation Enquiry — ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nPreferred Date: ${date}\nParty Size: ${pax}\n\nNote:\n${notes || '—'}`
+    );
+    window.location.href = `mailto:reservations@mchateau.sg?subject=${subject}&body=${body}`;
+    return false;
+  }
+</script>
+
+</body>
+</html>
