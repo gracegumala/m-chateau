@@ -963,21 +963,21 @@
       <div class="eyebrow light reveal"><span class="num">II</span>The Chef</div>
       <h2 class="reveal reveal-slow">Marcus<br/>Lim</h2>
       <div class="chef-sub reveal">Chef &amp; Founder</div>
-      <p class="reveal">Trained inside some of Singapore's most exacting kitchens — apprenticed at Sabio by the Sea, then through the brigades of Garibaldi and other Michelin-starred houses, where he was personally mentored by two-Michelin-star Chef Kirk Westaway.</p>
+      <p class="reveal">Trained inside some of Singapore's most exacting kitchens — beginning with an early internship at Sabio by the Sea, then progressing through Garibaldi, Saint Pierre, and JAAN by Kirk Westaway, where he was personally mentored by the two-Michelin-star chef.</p>
       <p class="reveal">His cuisine is rooted in classical French technique — sous-vide, butter-mounted sauces, precise plating — and lifted by quiet Japanese accents drawn from years on the line.</p>
       <p class="reveal">Marcus is openly neurodivergent, living with dyslexia, ADHD, and autism. The exactness that defines his cooking has been hard-won, and it is the same exactness he brings to every plate that leaves his pass.</p>
 
       <ul class="lineage reveal">
         <li>
           <span class="label">Mentorship</span>
-          <span class="value">Chef Kirk Westaway · ★★</span>
+          <span class="value">Chef Kirk Westaway · JAAN ★★</span>
         </li>
         <li>
           <span class="label">Brigade</span>
-          <span class="value">Garibaldi · Michelin Star</span>
+          <span class="value">Saint Pierre · Garibaldi · JAG</span>
         </li>
         <li>
-          <span class="label">Apprenticeship</span>
+          <span class="label">Beginning</span>
           <span class="value">Sabio by the Sea</span>
         </li>
         <li>
@@ -1168,10 +1168,7 @@
       <label for="rNotes">A Note for the Chef</label>
       <textarea id="rNotes" name="notes" placeholder="Dietary preferences, occasion, or any seasonal enhancement requests…"></textarea>
     </div>
-    <button type="submit" class="submit-btn">
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="margin-right:10px; vertical-align:-2px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.031-.967-.273-.099-.471-.148-.67.15-.197.297-.768.967-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Enquire via WhatsApp
-    </button>
+    <button type="submit" class="submit-btn">Send Enquiry</button>
   </form>
   <a class="reserve-alt reveal" href="https://ig.me/m/real.mchateau" target="_blank" rel="noopener">— or send a DM on Instagram —</a>
 </section>
@@ -1188,7 +1185,7 @@
   <div class="footer-bottom">
     <div class="copy">© M Chateau · All Rights Reserved</div>
     <div>
-      <a href="https://wa.me/6587210201" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:marcuschateau25@gmail.com">Email</a>
       <a href="https://www.instagram.com/real.mchateau/" target="_blank" rel="noopener">Instagram</a>
     </div>
     <div class="copy">Crafted with intention</div>
@@ -1214,10 +1211,8 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // Reservation form -> WhatsApp deep link
-  // TODO: replace MCHATEAU_WHATSAPP with the real number, including country code, no '+', spaces, or dashes.
-  // Example for Singapore: '6591234567'
-  const MCHATEAU_WHATSAPP = '6587210201';
+  // Reservation form -> mailto
+  const MCHATEAU_EMAIL = 'marcuschateau25@gmail.com';
 
   function submitReservation(e) {
     e.preventDefault();
@@ -1228,15 +1223,16 @@
     const pax = f.pax.value;
     const notes = f.notes.value.trim();
 
-    const text = encodeURIComponent(
+    const subject = encodeURIComponent(`Reservation Enquiry — ${name}`);
+    const body = encodeURIComponent(
       `Hi M Chateau,\n\nI'd like to enquire about a reservation.\n\n` +
       `Name: ${name}\n` +
-      `Contact: ${email}\n` +
+      `Email: ${email}\n` +
       `Preferred Date: ${date}\n` +
       `Party Size: ${pax}\n\n` +
       `Note:\n${notes || '—'}`
     );
-    window.open(`https://wa.me/${MCHATEAU_WHATSAPP}?text=${text}`, '_blank', 'noopener');
+    window.location.href = `mailto:${MCHATEAU_EMAIL}?subject=${subject}&body=${body}`;
     return false;
   }
 </script>
