@@ -764,7 +764,7 @@
     background: transparent;
     color: var(--bone);
     border: 1px solid var(--bone);
-    padding: 22px 64px;
+    padding: 22px 56px;
     font-size: 11px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
@@ -772,8 +772,25 @@
     justify-self: center;
     transition: all 0.3s ease;
     font-family: 'Inter', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   .submit-btn:hover { background: var(--bone); color: var(--ink); }
+
+  .reserve-alt {
+    display: block;
+    margin-top: 36px;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    color: rgba(244,241,234,0.55);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  .reserve-alt:hover { color: var(--bone); }
 
   /* ─────────── FOOTER ─────────── */
   footer {
@@ -1151,8 +1168,12 @@
       <label for="rNotes">A Note for the Chef</label>
       <textarea id="rNotes" name="notes" placeholder="Dietary preferences, occasion, or any seasonal enhancement requests…"></textarea>
     </div>
-    <button type="submit" class="submit-btn">Send Enquiry</button>
+    <button type="submit" class="submit-btn">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="margin-right:10px; vertical-align:-2px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.031-.967-.273-.099-.471-.148-.67.15-.197.297-.768.967-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884zm8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Enquire via WhatsApp
+    </button>
   </form>
+  <a class="reserve-alt reveal" href="https://ig.me/m/real.mchateau" target="_blank" rel="noopener">— or send a DM on Instagram —</a>
 </section>
 
 <!-- FOOTER -->
@@ -1167,7 +1188,7 @@
   <div class="footer-bottom">
     <div class="copy">© M Chateau · All Rights Reserved</div>
     <div>
-      <a href="mailto:reservations@mchateau.sg">Email</a>
+      <a href="https://wa.me/6587210201" target="_blank" rel="noopener">WhatsApp</a>
       <a href="https://www.instagram.com/real.mchateau/" target="_blank" rel="noopener">Instagram</a>
     </div>
     <div class="copy">Crafted with intention</div>
@@ -1193,7 +1214,11 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // Reservation form -> mailto
+  // Reservation form -> WhatsApp deep link
+  // TODO: replace MCHATEAU_WHATSAPP with the real number, including country code, no '+', spaces, or dashes.
+  // Example for Singapore: '6591234567'
+  const MCHATEAU_WHATSAPP = '6587210201';
+
   function submitReservation(e) {
     e.preventDefault();
     const f = e.target;
@@ -1203,11 +1228,15 @@
     const pax = f.pax.value;
     const notes = f.notes.value.trim();
 
-    const subject = encodeURIComponent(`Reservation Enquiry — ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPreferred Date: ${date}\nParty Size: ${pax}\n\nNote:\n${notes || '—'}`
+    const text = encodeURIComponent(
+      `Hi M Chateau,\n\nI'd like to enquire about a reservation.\n\n` +
+      `Name: ${name}\n` +
+      `Contact: ${email}\n` +
+      `Preferred Date: ${date}\n` +
+      `Party Size: ${pax}\n\n` +
+      `Note:\n${notes || '—'}`
     );
-    window.location.href = `mailto:reservations@mchateau.sg?subject=${subject}&body=${body}`;
+    window.open(`https://wa.me/${MCHATEAU_WHATSAPP}?text=${text}`, '_blank', 'noopener');
     return false;
   }
 </script>
