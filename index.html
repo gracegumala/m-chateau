@@ -718,49 +718,68 @@
     line-height: 1.5;
   }
 
-  .reserve-form {
-    max-width: 680px;
-    margin: 0 auto;
+  /* Reservation details panel */
+  .reserve-details {
+    list-style: none;
+    max-width: 580px;
+    margin: 0 auto 60px;
+    padding: 0;
+    border-top: 1px solid rgba(244,241,234,0.16);
     text-align: left;
-    display: grid;
-    gap: 36px;
   }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
-  .field label {
-    display: block;
+  .reserve-details li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(244,241,234,0.16);
+    gap: 24px;
+  }
+  .reserve-details .label {
+    font-family: 'Inter', sans-serif;
     font-size: 10px;
-    letter-spacing: 0.36em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: rgba(244,241,234,0.55);
-    margin-bottom: 14px;
+    color: rgba(244,241,234,0.45);
   }
-  .field input,
-  .field select,
-  .field textarea {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(244,241,234,0.25);
-    padding: 6px 0 16px;
+  .reserve-details .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(244,241,234,0.95);
+    text-align: right;
+  }
+
+  /* "When you message, share —" */
+  .reserve-include {
+    max-width: 720px;
+    margin: 0 auto 56px;
+  }
+  .reserve-include .include-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(244,241,234,0.55);
+    margin-bottom: 16px;
+    letter-spacing: 0.01em;
+  }
+  .reserve-include .include-list {
     font-family: 'Cormorant Garamond', serif;
     font-size: 19px;
-    color: var(--bone);
-    outline: none;
-    transition: border-color 0.2s ease;
+    color: rgba(244,241,234,0.92);
+    letter-spacing: 0.01em;
+    line-height: 1.6;
   }
-  .field input::placeholder,
-  .field textarea::placeholder { color: rgba(244,241,234,0.3); font-style: italic; }
-  .field input:focus,
-  .field select:focus,
-  .field textarea:focus {
-    border-bottom-color: var(--bone);
+  .reserve-include .include-list .dot {
+    margin: 0 12px;
+    color: rgba(244,241,234,0.3);
   }
-  .field select option { background: var(--ink); color: var(--bone); }
-  .field textarea { resize: none; min-height: 60px; }
-  .field select { color-scheme: dark; }
 
-  .submit-btn {
-    margin-top: 30px;
+  /* Instagram CTA */
+  .ig-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
     background: transparent;
     color: var(--bone);
     border: 1px solid var(--bone);
@@ -768,29 +787,31 @@
     font-size: 11px;
     letter-spacing: 0.42em;
     text-transform: uppercase;
-    cursor: pointer;
-    justify-self: center;
+    text-decoration: none;
     transition: all 0.3s ease;
     font-family: 'Inter', sans-serif;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer;
   }
-  .submit-btn:hover { background: var(--bone); color: var(--ink); }
+  .ig-cta:hover { background: var(--bone); color: var(--ink); }
+  .ig-cta svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
 
-  .reserve-alt {
-    display: block;
-    margin-top: 36px;
-    text-align: center;
+  /* Email fallback */
+  .reserve-fallback {
+    margin-top: 38px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 16px;
-    letter-spacing: 0.04em;
-    color: rgba(244,241,234,0.55);
-    text-decoration: none;
-    transition: color 0.25s ease;
+    color: rgba(244,241,234,0.5);
+    letter-spacing: 0.02em;
   }
-  .reserve-alt:hover { color: var(--bone); }
+  .reserve-fallback a {
+    color: rgba(244,241,234,0.85);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(244,241,234,0.3);
+    padding-bottom: 1px;
+    transition: all 0.25s ease;
+  }
+  .reserve-fallback a:hover { color: var(--bone); border-bottom-color: var(--bone); }
 
   /* ─────────── FOOTER ─────────── */
   footer {
@@ -878,7 +899,10 @@
     .social-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
     .reserve { padding: 110px 22px 90px; }
-    .form-row { grid-template-columns: 1fr; gap: 30px; }
+    .reserve-details li { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .reserve-details .value { text-align: left; font-size: 17px; }
+    .reserve-include .include-list .dot { display: inline; }
+    .ig-cta { padding: 20px 36px; font-size: 10.5px; letter-spacing: 0.32em; }
 
     .footer-bottom { flex-direction: column; gap: 14px; }
     .footer-logo { width: 110px; }
@@ -1136,41 +1160,48 @@
 <section class="reserve" id="reserve">
   <div class="eyebrow reveal"><span class="num">V</span>Reservations</div>
   <h2 class="reveal reveal-slow">Reserve<br/>The Table</h2>
-  <p class="reveal">By appointment, Friday through Sunday — typically one month in advance.</p>
+  <p class="reveal">A short conversation, by direct message. We confirm the date, walk through the menu, and answer any questions about the evening before you book.</p>
 
-  <form class="reserve-form" id="reserveForm" onsubmit="return submitReservation(event)">
-    <div class="form-row">
-      <div class="field">
-        <label for="rName">Name</label>
-        <input id="rName" name="name" type="text" required placeholder="Your name" />
-      </div>
-      <div class="field">
-        <label for="rEmail">Email</label>
-        <input id="rEmail" name="email" type="email" required placeholder="you@example.com" />
-      </div>
+  <ul class="reserve-details reveal">
+    <li>
+      <span class="label">Evenings</span>
+      <span class="value">Friday · Saturday · Sunday</span>
+    </li>
+    <li>
+      <span class="label">Table</span>
+      <span class="value">Four to Six Guests</span>
+    </li>
+    <li>
+      <span class="label">Notice</span>
+      <span class="value">Approx. One Month in Advance</span>
+    </li>
+    <li>
+      <span class="label">Menu</span>
+      <span class="value">$168 / Guest · Enhancements by Request</span>
+    </li>
+  </ul>
+
+  <div class="reserve-include reveal">
+    <div class="include-title">When you message, kindly share —</div>
+    <div class="include-list">
+      <span>Your name</span>
+      <span class="dot">·</span>
+      <span>Preferred date</span>
+      <span class="dot">·</span>
+      <span>Party size</span>
+      <span class="dot">·</span>
+      <span>Dietary notes or occasion</span>
     </div>
-    <div class="form-row">
-      <div class="field">
-        <label for="rDate">Preferred Date</label>
-        <input id="rDate" name="date" type="date" required />
-      </div>
-      <div class="field">
-        <label for="rPax">Party Size</label>
-        <select id="rPax" name="pax" required>
-          <option value="">Select…</option>
-          <option value="4">Four guests</option>
-          <option value="5">Five guests</option>
-          <option value="6">Six guests</option>
-        </select>
-      </div>
-    </div>
-    <div class="field">
-      <label for="rNotes">A Note for the Chef</label>
-      <textarea id="rNotes" name="notes" placeholder="Dietary preferences, occasion, or any seasonal enhancement requests…"></textarea>
-    </div>
-    <button type="submit" class="submit-btn">Send Enquiry</button>
-  </form>
-  <a class="reserve-alt reveal" href="https://ig.me/m/real.mchateau" target="_blank" rel="noopener">— or send a DM on Instagram —</a>
+  </div>
+
+  <a href="https://ig.me/m/real.mchateau" target="_blank" rel="noopener" class="ig-cta reveal">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.9.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.9.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.9-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.9-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.2-.1 1.6-.1 4.8-.1zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 8.5 2.6 8.9 2.6 12s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4C15.5 4 15.1 4 12 4zm0 3.2a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6zm0 1.8a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5-2.4a1.1 1.1 0 1 1 0 2.3 1.1 1.1 0 0 1 0-2.3z"/></svg>
+    Send DM on Instagram
+  </a>
+
+  <div class="reserve-fallback reveal">
+    Prefer email? Write to <a href="mailto:marcuschateau25@gmail.com">marcuschateau25@gmail.com</a>
+  </div>
 </section>
 
 <!-- FOOTER -->
@@ -1211,30 +1242,6 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // Reservation form -> mailto
-  const MCHATEAU_EMAIL = 'marcuschateau25@gmail.com';
-
-  function submitReservation(e) {
-    e.preventDefault();
-    const f = e.target;
-    const name = f.name.value.trim();
-    const email = f.email.value.trim();
-    const date = f.date.value;
-    const pax = f.pax.value;
-    const notes = f.notes.value.trim();
-
-    const subject = encodeURIComponent(`Reservation Enquiry — ${name}`);
-    const body = encodeURIComponent(
-      `Hi M Chateau,\n\nI'd like to enquire about a reservation.\n\n` +
-      `Name: ${name}\n` +
-      `Email: ${email}\n` +
-      `Preferred Date: ${date}\n` +
-      `Party Size: ${pax}\n\n` +
-      `Note:\n${notes || '—'}`
-    );
-    window.location.href = `mailto:${MCHATEAU_EMAIL}?subject=${subject}&body=${body}`;
-    return false;
-  }
 </script>
 
 </body>
